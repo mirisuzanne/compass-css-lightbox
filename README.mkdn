@@ -4,4 +4,4 @@ Compass CSS Lightbox
 CSS-only lightboxes that work in IE6+, Mozilla and Webkit.
 Requires progressive JS support to work in Opera.
 
-Anyone want to take that on?
+Based on the work of [Jenna Smith](http://growldesign.co.uk/)
