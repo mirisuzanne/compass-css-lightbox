@@ -1,0 +1,38 @@
+// CSS LIGHTBOXES
+// Compatible with IE6+, Mozilla and Webkit browsers
+// With Javascript it becomes compatible with Opera as well
+
+// override these with the appropriate selectors
+!page_container     ||= "#container"
+!lightbox_container ||= "#lightboxes"
+!lightbox           ||= ".box"
+!close_box          ||= "#close"
+
+// set !lightbox_style to false to do the styling yourself.
+!lightbox_style     ||= true
+
+// import lightboxes
+@import css-lightbox.sass
+
+// make it happen
++lightboxes
+
+// Style the box yourself.
+#{!lightbox_container} 
+  li
+    background: rgba(0,0,0,.5)
+  #{!lightbox}
+    top: 6em
+    width: 30em
+    padding: 1em
+    border: 1em solid
+    background-color: white
+    a.close
+      background-color: red
+      color: white
+      display: block
+      float: right
+      font-weight: bold
+      text-align: center
+      text-decoration: none
+      width: 1.5em

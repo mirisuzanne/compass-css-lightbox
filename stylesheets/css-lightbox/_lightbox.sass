@@ -1,0 +1,56 @@
+// Use in an ie-specific stylesheet if !lightbox_hacks is false
+=lightboxes-ie(!lightboxes = !lightbox_container, !ie_hack = !lightbox_hacks)
+  @if !ie_hack
+    html
+      #overflow-y: auto
+    #{!lightboxes}
+      #position: relative
+      #overflow: hidden
+  @else
+    html
+      overflow-y: auto
+    #{!lightboxes}
+      position: relative
+      overflow: hidden 
+
+// Use +lightboxes at the top level of your document,
+// not applied to any tag or selector.
+=lightboxes(!container = !page_container, !lightboxes = !lightbox_container, !box = !lightbox, !close = !close_box, !ie_hack = !lightbox_hacks)
+  html, body
+    height: 100%
+    margin: 0
+    padding: 0
+
+  #{!container}
+    width: 100%
+    height: 100%
+    position: absolute
+    overflow: auto
+    top: 0
+    left: 0
+
+  #{!lightboxes}
+    width: 100%
+    height: 100%
+    margin: 0
+    padding: 0
+    list-style-type: none
+    overflow: hidden
+    text-align: left
+  
+    li
+      width: 100%
+      height: 3000px
+      position: relative
+
+    #{!box}
+      position: relative
+      margin: 0 auto
+      z-index: 1
+
+    #{!close}
+      background-color: transparent
+      z-index: -1
+    
+  @if !ie_hack
+    +lightboxes-ie(!lightboxes, !ie_hack)
