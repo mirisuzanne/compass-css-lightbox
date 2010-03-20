@@ -1,56 +1,28 @@
-// Use in an ie-specific stylesheet if !lightbox_hacks is false
-=lightboxes-ie(!lightboxes = !lightbox_container, !ie_hack = !lightbox_hacks)
-  @if !ie_hack
-    html
-      #overflow-y: auto
-    #{!lightboxes}
-      #position: relative
-      #overflow: hidden
-  @else
-    html
-      overflow-y: auto
-    #{!lightboxes}
-      position: relative
-      overflow: hidden 
-
-// Use +lightboxes at the top level of your document,
-// not applied to any tag or selector.
-=lightboxes(!container = !page_container, !lightboxes = !lightbox_container, !box = !lightbox, !close = !close_box, !ie_hack = !lightbox_hacks)
-  html, body
-    height: 100%
-    margin: 0
-    padding: 0
-
-  #{!container}
-    width: 100%
-    height: 100%
-    position: absolute
-    overflow: auto
+// apply this to the container elements of each lightbox
+=css-lightbox(!fade = !lightbox-fade, !style = !lightbox-box)
+  &:not(:target), &:target
+    +reset-box-model
+    +reset-font
+    display: block
+    z-index: -1
+    position: fixed
     top: 0
     left: 0
-
-  #{!lightboxes}
     width: 100%
-    height: 100%
-    margin: 0
-    padding: 0
-    list-style-type: none
-    overflow: hidden
-    text-align: left
-  
-    li
-      width: 100%
-      height: 3000px
-      position: relative
-
-    #{!box}
-      position: relative
-      margin: 0 auto
-      z-index: 1
-
-    #{!close}
-      background-color: transparent
-      z-index: -1
-    
-  @if !ie_hack
-    +lightboxes-ie(!lightboxes, !ie_hack)
+    +opacity(0)
+    @if !fade == "true"
+      +transition("opacity, z-index")
+    @if !style != "false"
+      #{!style}
+        margin: 3em auto
+        padding: 1.5em
+        width: 32em
+        border: 1em solid
+        background: white
+        text-align: left
+        +box-shadow(rgba(0,0,0,.9),0,0,1em)
+  &:target
+    z-index: 999
+    +opacity(1)
+    @if !fade == "true"
+      +transition("opacity, z-index")

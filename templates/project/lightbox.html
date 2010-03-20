@@ -1,23 +1,18 @@
-<div id="container">
-  <!-- all your normal page content -->
+<div id="content">
+  <!-- all your normal page content, with links to lightboxes: -->
+  <a href="#about-us">a link to the about-us lightbox</a>
 </div>
 
-<ul id="lightboxes">
-  <li id="close"></li>
-  <!--
-    EXAMPLE LIGHTBOX
-    ... each LI needs a unique ID. link to that ID to show the lightbox.
-    ... the "box" class (or a replacement class) is needed.
-    ... the #close link is needed (as well as the empty LI above), anywhere in your "box".
-    ... repeat as needed for any number of lightboxes.
-  -->
-  <li id="lightbox-about">
-    <div class="box">
+<div id="lightboxes">
+  
+  <!-- start lightbox -->
+  <!-- You need this structure, but can use whatever tags/classes/IDs you like-->
+  <aside id="about-us">
+    <div>
       <!-- Your Lightbox Content -->
-      <a href="#close" class="close" title="close the about lightbox">x</a>
+      <a href="#" title="close the about lightbox">close</a>
     </div>
-  </li>
-  <!--
-    END EXAMPLE LIGHTBOX
-  -->
-</ul>
+  </aside>
+  <!-- end lightbox... repeat as needed... -->
+  
+</div>

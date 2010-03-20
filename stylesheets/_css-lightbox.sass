@@ -2,29 +2,27 @@
 // Plugin by Eric Meyer - http://www.oddbird.net/
 // Based on the work of Jenna Smith - http://growldesign.co.uk/
 
-// Compatible with IE6+, Mozilla and Webkit browsers.
-// **Not compatible with Opera without Javascript help**
-//  - You can make it half-work in Opera with one change:
-//    - #{!lightboxes} needs an "overflow" of "auto" instead of "hidden"
-//    - It's not the default because Opera still does some funny things when you scroll.
-//    - This can also result in an un-neaded non-functional scroll-bar becoming visible
-//      when the page content *doesn't* extend past the height of the browser window.
-//      You can cover that with a background on #{!container} for other browsers.
+// CSS-only lightboxes that work in Everything But IE. Degrades gracefully, with
+// no effect on IE at all, so you can set fallback styles there or bootstrap it
+// with Javascript. Probably both.
 
-// You can override these variables either @import or when declaring a mixin
-// !page-container should contain all of your page content
-// !lightbox-container should be a sibling after !page-container
-//  - must contain an unordered list, each item containing !lightbox classed divs
-//  - each list item should also have it's own descriptive ID to link to
-//  - the first list item should be empty with a !close-box ID
-!page_container     ||= "#container"
-!lightbox_container ||= "#lightboxes"
-!lightbox           ||= ".box"
-!close_box          ||= "#close"
+// Set this to "true" to turn on CSS transitions
+// - causes Chrome to show fade-out on-load
+!lightbox-fade ||= "false"
 
-// By default these lightboxes use an IE hack.
-// You can turn that off here and use +lightbox-ie in your ie-specific stylesheet instead.
-!lightbox_hacks ||= true
+// override to set your own box styles as follows:
+// FOR EXAMPLE:
+  
+  #lightboxes aside
+    +css-lightbox
+    
+    &:not(:target), &:target
+      > div
+        /* styles for your box element */
+
+//
+!lightbox-box ||= "> div"
+
 
 // import lightboxes
 @import css-lightbox/lightbox.sass
