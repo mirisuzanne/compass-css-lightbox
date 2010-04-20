@@ -1,0 +1,36 @@
+// apply this to the container elements of each lightbox
+@mixin css-lightbox($fade: $lightbox-fade, $style: $lightbox-box) {
+  &:not(:target), &:target {
+    @include reset-box-model;
+    @include reset-font;
+    display: block;
+    z-index: -1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    @include transparent;
+    @if $fade {
+      @include transition(unquote("opacity, z-index")); 
+    }
+    @if $style {
+      #{$style} {
+        margin: 3em auto;
+        padding: 1.5em;
+        width: 32em;
+        border: 1em solid;
+        background: white;
+        text-align: left;
+        @include box-shadow(rgba(0, 0, 0, 0.9), 0, 0, 1em); 
+      } 
+    } 
+  }
+  
+  &:target {
+    z-index: 999;
+    @include opaque;
+    @if $fade {
+      @include transition(unquote("opacity, z-index")); 
+    } 
+  } 
+}

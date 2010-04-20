@@ -8,21 +8,20 @@
 
 // Set this to "true" to turn on CSS transitions
 // - causes Chrome to show fade-out on-load
-!lightbox-fade ||= "false"
+$lightbox-fade: false !default;
 
 // override to set your own box styles as follows:
 // FOR EXAMPLE:
-  
-  #lightboxes aside
-    +css-lightbox
-    
-    &:not(:target), &:target
-      > div
-        /* styles for your box element */
+//
+// #lightboxes aside
+//   +css-lightbox
+//
+//   &:not(:target), &:target
+//     > div
+//       /* styles for your box element
 
 //
-!lightbox-box ||= "> div"
-
+$lightbox-box: "> div" !default;
 
 // import lightboxes
-@import css-lightbox/lightbox.sass
+@import "css-lightbox/lightbox";
