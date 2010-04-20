@@ -2,16 +2,23 @@ Compass CSS Lightbox
 ====================
 
 CSS-only lightboxes that work in Everything But IE. Degrades gracefully, with
-no effect on IE at all, so you can set fallback styles there or bootstrap it
-with Javascript. Probably both.
+no effect on IE at all, so you can set fallback styles there and/or bootstrap it
+with Javascript.
 
 Installation
 ============
 
-in your project root directory:
+From the command line:
 
-    git clone git://github.com/ericam/compass-css-lightbox.git extensions/compass-css-lightbox/
-    compass install compass-css-lightbox
+    sudo gem install css-lightbox
+
+Add to a project (rails: compass.config, other: config.rb):
+
+    require 'css-lightbox'
+    
+Or create a new project:
+
+    compass -r css-lightbox -f css-lightbox project_directory
 
 
 Lightboxes
@@ -43,30 +50,32 @@ The important part is that you have:
 * an inner element in each that will act as the box itself (the `div` above)
 * a link to `#` from each box, to close it
 
-Your Sass:
+Your Scss:
     
     // override these if you want
-
-      // set to "true" for CSS3 transform fade-in/out
-      // - bug in Chrome allows you to see fade-out on-load
-      !lightbox-fade      ||= "false"
-    
-      // set to your box element
-      // or false to set the box styles on your own (see below)
-      !lightbox-box       ||= "> div"
-
+    //
+    // // set to "true" for CSS3 transform fade-in/out
+    // // - bug in Chrome allows you to see fade-out on-load
+    // !lightbox-fade      ||= "false"
+    //
+    // // set to your box element
+    // // or false to set the box styles on your own (see below)
+    // !lightbox-box       ||= "> div"
 
     // import lightboxes
-    @import css-lightbox.sass
+    @import "css-lightbox";
 
-    // make it happen (assuming above markup)
-    #lightboxes aside
-      +css-lightbox
-      
+    // make it happen (assuming lightbox.html markup)
+    #lightboxes aside {
+      @include css-lightbox;
+
       // add styles for IE
-      properties: values
-      
+      // properties: values
+
       // override box styles
-      &:not(:target), &:target
-        > div
-          properties: values
+      // &:not(:target), &:target
+      //   > div
+      //     properties: values
+
+    }
+    
