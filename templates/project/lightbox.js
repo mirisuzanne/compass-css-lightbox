@@ -41,5 +41,5 @@ function lightboxBootstrap(boxes, close, sClass, hClass) {
 
 // Application ---------------------------------------------------------------
 $(document).ready(function(){
-  lightboxBootstrap(lightboxes, closeLinks, showClass, hideClass);
+    lightboxBootstrap(lightboxes, closeLinks, showClass, hideClass);
 });
