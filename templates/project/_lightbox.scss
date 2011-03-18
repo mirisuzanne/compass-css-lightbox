@@ -1,31 +1,12 @@
-// CSS LIGHTBOXES
-// CSS-only lightboxes that work in Everything But IE. Degrades gracefully, with
-// no effect on IE at all, so you can set fallback styles there or bootstrap it
-// with Javascript. Probably both.
+//** CSS-Lightboxes **//
 
-// override these if you want
-//
-// // set to "true" for CSS3 transform fade-in/out
-// // - bug in Chrome allows you to see fade-out on-load
-// !lightbox-fade      ||= "false"
-//
-// // set to your box element
-// // or false to set the box styles on your own (see below)
-// !lightbox-box       ||= "> div"
+// Import ------------------------------------------------------------------
 
-// import lightboxes
 @import "css-lightbox";
 
-// make it happen (assuming lightbox.html markup)
+/* Lightboxes --------------------------------------------------------------*/
+
+// Based on the lightbox.html template provided:
 #lightboxes aside {
-  @include css-lightbox;
-  
-  // add styles for IE
-  // properties: values
-  
-  // override box styles
-  // &:not(:target), &:target
-  //   > div
-  //     properties: values
-  
+  @include lightbox-with-default-style("> div", "300ms");
 }

@@ -1,36 +1,106 @@
-// apply this to the container elements of each lightbox
-@mixin css-lightbox($fade: $lightbox-fade, $style: $lightbox-box) {
-  &:not(:target), &:target {
-    @include reset-box-model;
-    @include reset-font;
-    display: block;
-    z-index: -1;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    @include transparent;
-    @if $fade {
-      @include transition(unquote("opacity, z-index")); 
-    }
-    @if $style {
-      #{$style} {
-        margin: 3em auto;
-        padding: 1.5em;
-        width: 32em;
-        border: 1em solid;
-        background: white;
-        text-align: left;
-        @include box-shadow(rgba(0, 0, 0, 0.9), 0, 0, 1em); 
-      } 
-    } 
-  }
-  
+//** CSS-Lightboxes **//
+
+// Lightbox Basics -----------------------------------------------------------
+
+// Sets a lightbox as hidden
+@mixin lightbox-hidden {
+  @include reset-box-model;
+  @include transparent;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  z-index: -1;
+}
+
+// Sets a lightbox as active
+@mixin lightbox-active {
+  @include opaque;
+  z-index: 999; 
+}
+
+// Initiallizes lightbox styles, and hides them to be revealed later
+@mixin lightbox-hide {
+  @include lightbox-hidden;
+}
+
+// Shows a lightbox when it should be active
+@mixin lightbox-show(
+  $active: $lightbox-active
+) {
   &:target {
-    z-index: 999;
-    @include opaque;
-    @if $fade {
-      @include transition(unquote("opacity, z-index")); 
+    @include lightbox-active; 
+  }
+  @if $active {
+    &#{$active} {
+      @include lightbox-active; 
     } 
   } 
+}
+
+// Set up your lightboxes by applying to each container
+@mixin lightbox(
+  $active: $lightbox-active
+) {
+  @include lightbox-hide;
+  @include lightbox-show($active); 
+}
+
+// Default Lightboxing ------------------------------------------------------
+
+// Set a lightbox to fade
+@mixin lightbox-fade(
+  $fade-speed: $lightbox-fade
+) {
+  @if not $fade-speed {
+    $fade-speed: 500ms;
+  }
+  @include transition(unquote("opacity, z-index"), $fade-speed); 
+}
+
+// Styles the lightbox container
+@mixin lightbox-default-container-styles(
+  $fade-speed: $lightbox-fade
+) {
+  background: rgba(#000,.125);
+  @if $fade-speed {
+    @include lightbox-fade($fade-speed);
+  }
+}
+
+// Styles the lightbox box
+@mixin lightbox-default-box-styles {
+  @include box-shadow(rgba(0, 0, 0, 0.9), 0, 0, 1em); 
+  position: relative;
+  margin: 3em auto;
+  padding: 1.5em;
+  width: 32em;
+  border: 1em solid;
+  background: white;
+  text-align: left;
+}
+
+// Style the container and box in one fell swoop
+@mixin lightbox-default-styles(
+  $style      : $lightbox-box-to-style, 
+  $fade-speed : $lightbox-fade
+) {
+  @include lightbox-default-container-styles($fade-speed);
+  @if $style {
+    #{$style} {
+      @include lightbox-default-box-styles; 
+    }
+  }
+}
+
+// Create and style a lightbox all at once
+@mixin lightbox-with-default-styles(
+  $style      : $lightbox-box-to-style, 
+  $fade-speed : $lightbox-fade,
+  $active     : $lightbox-active
+) {
+  @include lightbox($active);
+  @include lightbox-default-styles($style,$fade-speed);
 }

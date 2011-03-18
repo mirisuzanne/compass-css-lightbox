@@ -1,27 +1,22 @@
-// CSS-only Lightboxes
-// Plugin by Eric Meyer - http://www.oddbird.net/
-// Based on the work of Jenna Smith - http://growldesign.co.uk/
+// CSS-Lightboxes ------------------------------------------------------------
+// Plugin by Eric Meyer - http://eric.oddbird.net/
 
-// CSS-only lightboxes that work in Everything But IE. Degrades gracefully, with
-// no effect on IE at all, so you can set fallback styles there or bootstrap it
-// with Javascript. Probably both.
+// These lightboxes work in all modern standards-complient browsers with
+// pure CSS. Additional support for Internet Explorer and older browsers
+// is made possible with a small amount of JavaScript.
 
-// Set this to "true" to turn on CSS transitions
-// - causes Chrome to show fade-out on-load
-$lightbox-fade: false !default;
 
-// override to set your own box styles as follows:
-// FOR EXAMPLE:
-//
-// #lightboxes aside
-//   +css-lightbox
-//
-//   &:not(:target), &:target
-//     > div
-//       /* styles for your box element
+// Defaults ------------------------------------------------------------------
 
-//
-$lightbox-box: "> div" !default;
+// Every lightbox includes an outer container and an inner box
+// Set this to a selector for that box.
+$lightbox-box-to-style  : "> div"     !default;
 
-// import lightboxes
+// Set the default fade time, or leave false for no fade
+$lightbox-fade          : false       !default;
+
+// Set the active selector to be used by the JS fallback
+$lightbox-active        : ".active"   !default;
+
+// Import --------------------------------------------------------------------
 @import "css-lightbox/lightbox";

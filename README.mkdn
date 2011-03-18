@@ -1,20 +1,25 @@
 Compass CSS Lightbox
 ====================
 
-CSS-only lightboxes that work in Everything But IE. Degrades gracefully, with
-no effect on IE at all, so you can set fallback styles there and/or bootstrap it
-with Javascript.
+These lightboxes work in all modern browsers with pure CSS. Additional support 
+for Internet Explorer and older browsers is made possible with a small amount 
+of JavaScript.
+
 
 Installation
 ============
 
 From the command line:
 
-    sudo gem install css-lightbox
+    (sudo) gem install css-lightbox
 
-Add to a project (rails: compass.config, other: config.rb):
+Add to a project:
 
+    // rails: compass.config, other: config.rb
     require 'css-lightbox'
+
+    // command line
+    compass install css-lightbox
     
 Or create a new project:
 
@@ -24,58 +29,163 @@ Or create a new project:
 Lightboxes
 ==========
 
-Your HTML:
-    
-    <div id="content">
-      <!-- all your normal page content, with links to lightboxes: -->
-      <a href="#about-us">a link to the about-us lightbox</a>
-    </div>
+The basic CSS-Lightbox works with a combination of internal links, z-index, 
+positioning and the css3 `:target` selector. Javascript bootstrapping simply
+interupts the link action, and applys active or inactive classes to the 
+boxes.
 
-    <div id="lightboxes">
+Each lightbox contains three important elements:
+
+    - Container
+        - Box
+        - Link to close the box (href="#")
+
+The container gives you extra positioning options, and acts as an optional 
+modal overlay for the page. You can write the HTML to your liking, but here is 
+one example:
+
+    <aside id="about-us" class="container">
+      <div class="box">
       
-      <!-- start lightbox -->
-      <aside id="about-us">
-        <div>
-          <!-- Your Lightbox Content -->
-          <a href="#" title="close the about lightbox">close</a>
-        </div>
-      </aside>
-      <!-- end lightbox... repeat as needed... -->
+        <!-- Your Lightbox Content -->
       
-    </div>
+        <a href="#" title="close the 'about' lightbox">close</a> <!-- Link to close -->
+      </div>
+    </aside>
 
-The important part is that you have:
+To open your lightbox, all you need is a link from somewhere else on the page
+that points at your lightbox:
 
-* elements with an ID linked from the content (the `aside` above)
-* an inner element in each that will act as the box itself (the `div` above)
-* a link to `#` from each box, to close it
+    <a href="#about-us">a link to the about-us lightbox</a>
 
-Your Scss:
+For a quick, pre-styled lightbox simply apply the `lightbox-with-default-styles`
+mixin to your lightbox containers. 
+
+    .container {
+      @include lightbox-with-default-styles;
+    }
+
+`lightbox-with-default-styles` takes three optional arguments, each with 
+defaults that you can override globaly for your project. 
+
+* The first argument is a (relative) selector for the box, and defaults 
+  to `"> div"`. 
+* The second is a fade-speed using CSS transitions. This defaults to `false` 
+  for no fade.
+* The third defines the JS fallback "active" selector that you are using.
+  It defaults to `.active`.
+
+Use them like so:
+
+    .container {
+      @include lightbox-with-default-styles('> div', '300ms', '.visible');
+    }
+
+
+Javascript Bootstrapping
+========================
+
+For Javascript bootstrapping in IE (using jQuery), simply link the included 
+lightbox.js and make any needed changes to the HTML-related variables that it 
+uses:
+
+    // "lightboxes" should point to the lightbox containers on your page
+    var lightboxes = $('#lightboxes aside');
     
-    // override these if you want
-    //
-    // // set to "true" for CSS3 transform fade-in/out
-    // // - bug in Chrome allows you to see fade-out on-load
-    // !lightbox-fade      ||= "false"
-    //
-    // // set to your box element
-    // // or false to set the box styles on your own (see below)
-    // !lightbox-box       ||= "> div"
+    // "closeLinks" should point at the links used to close boxes
+    var closeLinks = $('#lightboxes a[title*="close"]');
+    
+    // "showClass" is the class to use for active lightboxes
+    // "hideClass" is used for inactive lightboxes
+    var showClass = 'active'
+    var hideClass = 'hidden'
 
-    // import lightboxes
-    @import "css-lightbox";
+The function is called simply, and the variables can be overridden on each call
+as needed:
 
-    // make it happen (assuming lightbox.html markup)
-    #lightboxes aside {
-      @include css-lightbox;
+    $(document).ready(function(){
+      lightboxBootstrap(lightboxes, closeLinks, showClass, hideClass);
+    });
 
-      // add styles for IE
-      // properties: values
 
-      // override box styles
-      // &:not(:target), &:target
-      //   > div
-      //     properties: values
+Advanced Lightboxes
+===================
 
+But why would you use my styles when you can create your own? For simple 
+lightboxes without any styling at all, you can use the simple `lightbox` mixin:
+
+    .container {
+      @include lightbox;
     }
     
+I'll warn you, it's ugly until you add some style, but adding style isn't hard.
+By default `absolute` positioning is used on the containers to place them in
+the top left. You can override that by changing the positioning of your 
+container as you like. You'll find that each solution has advantages and 
+disadvantages.
+
+
+Available Defaults and Mixins
+=============================
+
+Defaults:
+
+    // Set this to a selector for the inner box.
+    $lightbox-box-to-style: "> div";
+
+    // Set the default fade time, or leave false for no fade
+    $lightbox-fade: false;
+
+    // Set the active selector to be used by the JS fallback
+    $lightbox-active: ".active";
+
+Mixins:
+
+* What makes a lightbox inactive
+
+    lightbox-hidden();
+
+* What makes a lightbox active
+
+    lightbox-active();
+
+* Initiallizes lightbox styles, and hides them to be revealed later
+  
+    lightbox-hide();
+
+* Shows a lightbox when it should be active
+
+  lightbox-show(
+    $active: $lightbox-active );
+
+* Set up your lightboxes by applying to each container
+
+    lightbox(
+      $active: $lightbox-active );
+
+* Set a lightbox to fade
+
+    lightbox-fade(
+      $fade-speed: $lightbox-fade or 500ms );
+
+* Apply default styles to the lightbox container
+
+    lightbox-default-container-styles(
+      $fade-speed: $lightbox-fade );
+  
+* Apply default styles to the box
+
+    lightbox-default-box-styles();
+
+* Apply default styles to the container and box in one fell swoop
+
+    lightbox-default-styles(
+      $style      : $lightbox-box-to-style, 
+      $fade-speed : $lightbox-fade );
+
+* Create and style a lightbox all at once
+
+    lightbox-with-default-styles(
+      $style      : $lightbox-box-to-style, 
+      $fade-speed : $lightbox-fade,
+      $active     : $lightbox-active );

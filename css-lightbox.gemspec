@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   # Release Specific Information
-  s.version = "0.2.0"
-  s.date = "2010-04-20"
+  s.version = "0.3.beta.0"
+  s.date = "2011-03-18"
 
   # Gem Details
   s.name = "css-lightbox"
@@ -19,8 +19,7 @@ Gem::Specification.new do |s|
 
   # Gem Bookkeeping
   s.has_rdoc = false
-  s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.6}
-  s.add_dependency("compass", [">= 0.10.0.rc3"])
+  s.add_dependency("compass", [">= 0.11.beta.3"])
 end
 
