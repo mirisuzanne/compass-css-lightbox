@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   # Release Specific Information
-  s.version = "0.3.beta.0"
+  s.version = "0.3.beta.1"
   s.date = "2011-03-18"
 
   # Gem Details
@@ -18,8 +18,7 @@ Gem::Specification.new do |s|
   s.files += Dir.glob("templates/**/*.*")
 
   # Gem Bookkeeping
-  s.has_rdoc = false
   s.rubygems_version = %q{1.3.6}
-  s.add_dependency("compass", [">= 0.11.beta.3"])
+  s.add_dependency("compass", [">= 0.11"])
 end
 
