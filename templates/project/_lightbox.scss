@@ -8,5 +8,5 @@
 
 // Based on the lightbox.html template provided:
 #lightboxes aside {
-  @include lightbox-with-default-style("> div", "300ms");
+  @include lightbox-with-default-styles("> div", 300ms);
 }

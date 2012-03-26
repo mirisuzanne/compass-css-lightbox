@@ -57,7 +57,7 @@
   @if not $fade-speed {
     $fade-speed: 500ms;
   }
-  @include transition(unquote("opacity, z-index"), $fade-speed); 
+  @include single-transition(unquote("opacity, z-index"), $fade-speed); 
 }
 
 // Styles the lightbox container
@@ -72,7 +72,7 @@
 
 // Styles the lightbox box
 @mixin lightbox-default-box-styles {
-  @include box-shadow(rgba(0, 0, 0, 0.9), 0, 0, 1em); 
+  @include single-box-shadow(rgba(0, 0, 0, 0.9), 0, 0, 1em); 
   position: relative;
   margin: 3em auto;
   padding: 1.5em;
