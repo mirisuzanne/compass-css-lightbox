@@ -11,7 +11,7 @@ Installation
 
 From the command line:
 
-    (sudo) gem install css-lightbox
+    (sudo) gem install css-lightbox --pre
 
 Add to a project:
 
