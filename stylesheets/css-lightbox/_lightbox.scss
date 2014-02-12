@@ -62,7 +62,7 @@
   @if not $fade-speed {
     $fade-speed: 500ms;
   }
-  @include single-transition(unquote("opacity, z-index"), $fade-speed); 
+  @include transition(opacity $fade-speed, z-index $fade-speed); 
 }
 
 // Styles the lightbox container
